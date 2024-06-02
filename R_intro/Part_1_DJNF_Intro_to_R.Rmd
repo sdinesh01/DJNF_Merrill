@@ -98,11 +98,10 @@ in active memory by loading a library
 Libraries are bits of software you will have to load each time into R to
 make things run.
 
-```{r message=FALSE, warning=FALSE}
+```{r}
 library(tidyverse)
-#load the librar for rio 
-#load the librar for janitor
-
+library(rio)
+library(janitor)
 ```
 
 Check to see what's installed by clicking on "Packages" tab in File
@@ -163,6 +162,7 @@ How many columns?
 
 ```{r}
 #use the command ncol to determine the number of columns
+ncol(MediaBucks)
 ```
 
 Dimensions: Gives number rows, then columns
@@ -175,7 +175,7 @@ Names of your columns
 
 ```{r}
 #use the command colnames to determine the number of columns
-
+colnames(MediaBucks)
 ```
 
 OR
@@ -188,13 +188,16 @@ Check data types
 
 ```{r}
 #During class, remove hashtag on next line and run chunk
-#str(MediaBucks)
+# returns column names, number of rows and columns, type (all character format)
+str(MediaBucks)
 ```
 
 Let's look at the first six rows
 
 ```{r}
 #Display the first six rows of data
+#apparently head in R displays six rows by default??
+head(MediaBucks, 6)
 ```
 
 Here is a quick way to view the range of your data
@@ -206,6 +209,7 @@ summary(MediaBucks$Salary)
 Size and scope
 
 ```{r}
+#na.rm parameter removes na values -- returns nothing if you try to sum NA values
 sum(MediaBucks$Salary, na.rm=TRUE)
 ```
 
@@ -220,7 +224,7 @@ average
 #We just used sum to determine total salaries.
 #mean is the command to determine averages.
 #replace sum for mean: sum(MediaBucks$Salary, na.rm=TRUE)
-
+mean(MediaBucks$Salary, na.rm=TRUE)
 ```
 
 Distribution by increments of ten
@@ -281,15 +285,14 @@ MediaBucks %>%
 
 Better idea: Check Averages!
 
-
 ```{r}
 #Using the example code above, create a column called Avg_Salary and use the mean command to produce the calculation
 #Adapt the code below to do this:
 
-# MediaBucks %>% 
-#   select(Gender, Salary) %>% 
-#   group_by(Gender) %>% 
-#   summarize(Total = sum(Salary, na.rm=TRUE))
+MediaBucks %>% 
+  select(Gender, Salary) %>% 
+  group_by(Gender) %>% 
+  summarize(Avg_Salary = mean(Salary, na.rm=TRUE))
 
 
 
@@ -298,7 +301,8 @@ Better idea: Check Averages!
 Quick filter out hourly workers
 
 ```{r}
-MediaSalary <- MediaBucks %>% 
+# %>% operator joins lines (so you can write code on multiple lines, ctrl+shift+m)
+MediaSalary <- MediaBucks %>%
   filter(Salary >= 1000)
 ```
 
@@ -349,7 +353,6 @@ Questions
 
 ```
 
-
 ```{r}
 #2: Determine median salary of NewYorkTimes employees   
 
@@ -370,7 +373,6 @@ Questions
 
 
 ```
-
 
 <br> \#### More Tables
 
@@ -448,8 +450,8 @@ How to conduct filter queries from a dataset
 
 #### Next Steps
 
-Try [Basic Data Visualization in R](https://wellsdata.github.io/DJNF_Merrill/Intro_to_R_2024/DJNF_Basic_Data_Viz.html)
-
+Try [Basic Data Visualization in
+R](https://wellsdata.github.io/DJNF_Merrill/Intro_to_R_2024/DJNF_Basic_Data_Viz.html)
 
 # Appendix
 
